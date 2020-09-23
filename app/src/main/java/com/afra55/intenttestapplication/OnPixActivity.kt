@@ -2,6 +2,7 @@ package com.afra55.intenttestapplication
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.mopub.common.SdkConfiguration
 import com.mopub.common.logging.MoPubLog
 import com.mopub.mobileads.MoPubErrorCode
 import com.mopub.mobileads.MoPubInterstitial
+import kotlin.math.abs
 
 
 /**
@@ -23,6 +25,10 @@ import com.mopub.mobileads.MoPubInterstitial
  * 没有成绩，连呼吸都是错的。
  */
 class OnPixActivity : AppCompatActivity() {
+
+    val sp by lazy {
+        getSharedPreferences("time_", Context.MODE_PRIVATE)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +49,10 @@ class OnPixActivity : AppCompatActivity() {
         if (!isAdInited) {
             initAd(this)
         } else {
-            showInterstitial()
+            if (!isAdShowing && abs(System.currentTimeMillis() - sp.getLong("time_ad_show", 0)) > 10 * 1000) {
+                showInterstitial()
+                sp.edit().putLong("time_ad_show", System.currentTimeMillis()).apply()
+            }
         }
 
         Toast.makeText(this, "弹个广告 ${KeepLiveWork.number++}", Toast.LENGTH_SHORT).show()
@@ -52,6 +61,7 @@ class OnPixActivity : AppCompatActivity() {
     var mInterstitial: MoPubInterstitial? = null
     var isAdInited = false
     var isLoadingAd = false
+    var isAdShowing = false
     fun initAd(context: Context) {
         val sdkConfiguration: SdkConfiguration =
             SdkConfiguration.Builder("24534e1901884e398f1253216226017e")
@@ -71,10 +81,11 @@ class OnPixActivity : AppCompatActivity() {
                 override fun onInterstitialLoaded(interstitial: MoPubInterstitial?) {
                     interstitial?.show()
                     isLoadingAd = false
+
                 }
 
                 override fun onInterstitialShown(interstitial: MoPubInterstitial?) {
-                    
+                    isAdShowing = true
                 }
 
                 override fun onInterstitialFailed(
@@ -85,7 +96,7 @@ class OnPixActivity : AppCompatActivity() {
                 }
 
                 override fun onInterstitialDismissed(interstitial: MoPubInterstitial?) {
-                    
+                    isAdShowing = false
                 }
 
                 override fun onInterstitialClicked(interstitial: MoPubInterstitial?) {

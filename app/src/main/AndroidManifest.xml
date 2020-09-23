@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".OnPixActivity"
             android:excludeFromRecents="true"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:theme="@style/TransparentStyle"/>
         <receiver
             android:name=".MyBroadcastReceiver"
@@ -110,7 +110,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -140,6 +141,8 @@
                 <action android:name="com.test.intent.action.ALARM" />
             </intent-filter>
         </receiver>
+
+        <service android:name=".TraceServiceImpl"/>
     </application>
 
 </manifest>
