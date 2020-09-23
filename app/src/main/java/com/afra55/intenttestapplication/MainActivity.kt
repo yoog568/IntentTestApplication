@@ -1,30 +1,18 @@
 package com.afra55.intenttestapplication
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.os.Build
-import android.os.Build.VERSION_CODES.N
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.core.app.JobIntentService
+import androidx.appcompat.app.AppCompatActivity
 import androidx.work.*
-import com.mopub.common.MoPub
-import com.mopub.common.SdkConfiguration
-import com.mopub.common.logging.MoPubLog
+import com.xdandroid.hellodaemon.DaemonEnv
+import com.xdandroid.hellodaemon.IntentWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
-import com.mopub.mobileads.MoPubInterstitial
-import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {
@@ -52,10 +40,15 @@ class MainActivity : AppCompatActivity() {
 
         WorkManager.getInstance(this).enqueue(uploadWorkRequest)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            AlarmReceiver.setAlarm(this, true)
-        }
+        TraceServiceImpl.sShouldStopService = false
+        DaemonEnv.startServiceMayBind(TraceServiceImpl::class.java)
 
+        IntentWrapper.whiteListMatters(this, "轨迹跟踪服务的持续运行")
+    }
+
+    //防止华为机型未加入白名单时按返回键回到桌面再锁屏后几秒钟进程被杀
+    override fun onBackPressed() {
+        IntentWrapper.onBackPressed(this)
     }
 }
 

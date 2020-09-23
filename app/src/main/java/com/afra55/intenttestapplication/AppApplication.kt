@@ -3,8 +3,7 @@ package com.afra55.intenttestapplication
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
+import com.xdandroid.hellodaemon.DaemonEnv
 
 /**
  * @author Afra55
@@ -27,6 +26,11 @@ class AppApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         context = this;
+
+        //需要在 Application 的 onCreate() 中调用一次 DaemonEnv.initialize()
+        DaemonEnv.initialize(this, TraceServiceImpl::class.java, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL)
+        TraceServiceImpl.sShouldStopService = false
+        DaemonEnv.startServiceMayBind(TraceServiceImpl::class.java)
     }
 
 //    @Subscribe(threadMode = ThreadMode.MAIN)
