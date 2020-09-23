@@ -1,0 +1,86 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // work-runtime-ktx 2.1.0 and above now requires Java 8
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    defaultConfig {
+        applicationId "com.afra55.intenttestapplication"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../app/Test.jks")
+            storePassword "123456"
+            keyAlias "Test"
+            keyPassword "123456"
+        }
+
+        debug {
+            storeFile file("../app/Test.jks")
+            storePassword "123456"
+            keyAlias "Test"
+            keyPassword "123456"
+        }
+        // Notice the production keystore and password are not checked in. Signing resources for
+        // release builds are typically stored somewhere more secure than the source repo.
+        // This typically also means that release builds are signed manually rather than by
+        // Gradle.
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    def work_version = "2.4.0"
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+
+    implementation('com.mopub:mopub-sdk:5.12.0@aar') {
+        transitive = true
+        exclude module: 'moat-mobile-app-kit' // To exclude Moat
+    }
+    implementation 'org.greenrobot:eventbus:3.2.0'
+    implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
+}
+
+android.applicationVariants.all{ variant ->
+    variant.outputs.each { output ->
+        def file = output.outputFile
+        if (file.name.endsWith(".apk")) {
+            output.outputFileName = file.name.replace(".apk", "广告测试-${variant.versionName}(${variant.versionCode})-${new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+8"))}.apk")
+        }
+
+        println(output.outputFileName)
+
+    }
+}

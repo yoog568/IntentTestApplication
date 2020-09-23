@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.afra55.intenttestapplication">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- JobService权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:name=".AppApplication"
+        android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:theme="@style/AppTheme">
+        <activity android:name=".OnPixActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:theme="@style/TransparentStyle"/>
+        <receiver
+            android:name=".MyBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
+
+                <!--豁免的原因这些广播仅在首次启动时发送一次，而且许多应用需要接收此广播以调度作业、闹钟等。-->
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <!-- 这些广播受特许权限保护，因此大多数普通应用都无法接收它们。-->
+                <action android:name="android.intent.action.USER_INITIALIZE" />
+                <action android:name="android.intent.action.USER_ADDED" />
+                <action android:name="android.intent.action.USER_REMOVED" />
+
+                <!--当时间、时区或闹钟发生更改时，时钟应用可能需要接收这些广播以更新闹钟-->
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
+
+                <!--仅在语言区域发生更改时发送，这种情况并不常见。当语言区域发生更改时，应用可能需要更新其数据。-->
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+
+                <!--如果某个应用需要了解这些与 USB 有关的事件，除了为广播进行注册，目前还没有很好的替代方法。-->
+                <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
+                <action android:name="android.hardware.usb.action.USB_ACCESSORY_DETACHED" />
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+                <action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED" />
+
+                <!--如果应用接收到针对这些蓝牙事件的广播，则用户体验不太可能受到影响。-->
+                <action android:name="android.bluetooth.headset.profile.action.CONNECTION_STATE_CHANGED" />
+                <action android:name="android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED" />
+                <action android:name="android.bluetooth.device.action.ACL_CONNECTED" />
+                <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED" />
+
+
+                <!--OEM 电话应用可能需要接收这些广播。-->
+                <action android:name="android.telephony.action.CARRIER_CONFIG_CHANGED" />
+                <action android:name="android.intent.action.PHONE_STATE" />
+                <action android:name="android.telecom.action.PHONE_ACCOUNT_REGISTERED" />
+                <action android:name="android.telecom.action.PHONE_ACCOUNT_UNREGISTERED" />
+                <action android:name="TelephonyIntents.SECRET_CODE_ACTION" />
+                <action android:name="TelephonyIntents.ACTION_*_SUBSCRIPTION_CHANGED" />
+
+                <!--有些应用需要了解登录帐号的更改，以便为新帐号和已更改的帐号设置调度的操作。-->
+                <action android:name="android.accounts.LOGIN_ACCOUNTS_CHANGED" />
+
+                <!--具有帐号可见性的应用会在帐号被移除后收到此广播。-->
+                <action android:name="android.accounts.action.ACCOUNT_REMOVED" />
+
+                <!--仅在用户明确清除“设置”中的数据时发送，因此广播接收器不太可能对用户体验造成显著影响。-->
+                <action android:name="android.intent.action.PACKAGE_DATA_CLEARED" />
+
+                <!--某些应用可能需要在其他软件包被移除时更新其存储的数据；对于这些应用来说，除了为此广播进行注册，没有很好的替代方法。-->
+                <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
+
+                <!--应用需要接收此广播，以在用户拨打电话时采取相应操作。-->
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+
+                <!--此直播的发送频率不高；某些应用需要接收它来了解设备的安全状态已发生更改。-->
+                <action android:name="android.app.action.DEVICE_OWNER_CHANGED" />
+
+                <!--由日历提供程序发送，以向日历应用发布事件提醒。由于日历提供程序并不知道日历应用是什么，因此此广播必须是隐式的。-->
+                <action android:name="android.intent.action.EVENT_REMINDER" />
+
+                <!--这些广播会在用户与设备的物理互动（安装或移除存储卷）或启动初始化（可用卷装载时）过程中发送，并且通常受用户控制。-->
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.MEDIA_CHECKING" />
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+                <action android:name="android.intent.action.MEDIA_EJECT" />
+                <action android:name="android.intent.action.MEDIA_UNMOUNTABLE" />
+                <action android:name="android.intent.action.MEDIA_REMOVED" />
+                <action android:name="android.intent.action.MEDIA_BAD_REMOVAL" />
+
+                <!--短信接收者应用需要依赖这些广播。-->
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED" />
+
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+                <action android:name="com.xdandroid.hellodaemon.CANCEL_JOB_ALARM_SUB"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- MoPub's consent dialog -->
+        <activity android:name="com.mopub.common.privacy.ConsentDialogActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+
+        <!-- All ad formats -->
+        <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"/>
+
+        <!-- Interstitials -->
+        <activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="com.mopub.mobileads.MraidActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+
+        <!-- Rewarded Video and Rewarded Playables -->
+        <activity android:name="com.mopub.mobileads.RewardedMraidActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.test.intent.action.ALARM" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
