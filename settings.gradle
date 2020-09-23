@@ -1,3 +1,4 @@
+include ':library'
 include ':hellodaemon'
 include ':app'
 rootProject.name = "IntentTestApplication"

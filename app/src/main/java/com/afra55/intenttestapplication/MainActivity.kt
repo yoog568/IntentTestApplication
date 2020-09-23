@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         isResume = true
+
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +46,8 @@ class MainActivity : AppCompatActivity() {
         DaemonEnv.startServiceMayBind(TraceServiceImpl::class.java)
 
         IntentWrapper.whiteListMatters(this, "轨迹跟踪服务的持续运行")
+
+        startService(Intent(this@MainActivity, Service1::class.java))
     }
 
     //防止华为机型未加入白名单时按返回键回到桌面再锁屏后几秒钟进程被杀

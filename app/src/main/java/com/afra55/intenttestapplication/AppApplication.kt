@@ -4,6 +4,9 @@ import android.app.Application
 import android.content.Context
 import android.widget.Toast
 import com.xdandroid.hellodaemon.DaemonEnv
+import me.weishu.leoric.Leoric
+import me.weishu.leoric.LeoricConfigs
+import me.weishu.leoric.LeoricConfigs.LeoricConfig
 
 /**
  * @author Afra55
@@ -21,6 +24,27 @@ class AppApplication : Application() {
                 Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+
+        Leoric.init(
+            base, LeoricConfigs(
+                LeoricConfig(
+                    "$packageName:resident",
+                    Service1::class.java.canonicalName,
+                    Receiver1::class.java.canonicalName,
+                    Activity1::class.java.canonicalName
+                ),
+                LeoricConfig(
+                    "android.media",
+                    Service2::class.java.canonicalName,
+                    Receiver2::class.java.canonicalName,
+                    Activity2::class.java.canonicalName
+                )
+            )
+        )
     }
 
     override fun onCreate() {

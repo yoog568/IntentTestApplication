@@ -1,0 +1,18 @@
+Executable : /Users/victor/Library/Android/sdk/ndk/20.0.5594570/ndk-build
+arguments : 
+NDK_PROJECT_PATH=null
+APP_BUILD_SCRIPT=/Users/victor/Program/Android/Test/IntentTestApplication/library/jni/Android.mk
+NDK_APPLICATION_MK=/Users/victor/Program/Android/Test/IntentTestApplication/library/jni/Application.mk
+APP_ABI=arm64-v8a
+NDK_ALL_ABIS=arm64-v8a
+NDK_DEBUG=0
+APP_PLATFORM=android-21
+NDK_OUT=/Users/victor/Program/Android/Test/IntentTestApplication/library/build/intermediates/ndkBuild/release/obj
+NDK_LIBS_OUT=/Users/victor/Program/Android/Test/IntentTestApplication/library/build/intermediates/ndkBuild/release/lib
+APP_SHORT_COMMANDS=false
+LOCAL_SHORT_COMMANDS=false
+-B
+-n
+jvmArgs : 
+
+Build command args:

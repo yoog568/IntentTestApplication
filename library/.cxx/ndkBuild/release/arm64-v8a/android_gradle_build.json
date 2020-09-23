@@ -1,0 +1,34 @@
+{
+  "buildFiles": [
+    "/Users/victor/Program/Android/Test/IntentTestApplication/library/jni/Android.mk",
+    "/Users/victor/Program/Android/Test/IntentTestApplication/library/jni/Application.mk"
+  ],
+  "cleanCommands": [
+    "/Users/victor/Library/Android/sdk/ndk/20.0.5594570/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Users/victor/Program/Android/Test/IntentTestApplication/library/jni/Android.mk NDK_APPLICATION_MK\u003d/Users/victor/Program/Android/Test/IntentTestApplication/library/jni/Application.mk APP_ABI\u003darm64-v8a NDK_ALL_ABIS\u003darm64-v8a NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/Users/victor/Program/Android/Test/IntentTestApplication/library/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003d/Users/victor/Program/Android/Test/IntentTestApplication/library/build/intermediates/ndkBuild/release/lib clean"
+  ],
+  "buildTargetsCommand": "/Users/victor/Library/Android/sdk/ndk/20.0.5594570/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Users/victor/Program/Android/Test/IntentTestApplication/library/jni/Android.mk NDK_APPLICATION_MK\u003d/Users/victor/Program/Android/Test/IntentTestApplication/library/jni/Application.mk APP_ABI\u003darm64-v8a NDK_ALL_ABIS\u003darm64-v8a NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/Users/victor/Program/Android/Test/IntentTestApplication/library/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003d/Users/victor/Program/Android/Test/IntentTestApplication/library/build/intermediates/ndkBuild/release/lib {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "leoric-release-arm64-v8a": {
+      "buildCommand": "/Users/victor/Library/Android/sdk/ndk/20.0.5594570/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Users/victor/Program/Android/Test/IntentTestApplication/library/jni/Android.mk NDK_APPLICATION_MK\u003d/Users/victor/Program/Android/Test/IntentTestApplication/library/jni/Application.mk APP_ABI\u003darm64-v8a NDK_ALL_ABIS\u003darm64-v8a NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/Users/victor/Program/Android/Test/IntentTestApplication/library/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003d/Users/victor/Program/Android/Test/IntentTestApplication/library/build/intermediates/ndkBuild/release/lib /Users/victor/Program/Android/Test/IntentTestApplication/library/build/intermediates/ndkBuild/release/obj/local/arm64-v8a/libleoric.so",
+      "toolchain": "toolchain-arm64-v8a",
+      "abi": "arm64-v8a",
+      "artifactName": "leoric",
+      "files": [
+        {
+          "src": "/Users/victor/Program/Android/Test/IntentTestApplication/library/jni/leoric.c",
+          "flags": "-target aarch64-none-linux-android21 -fdata-sections -ffunction-sections -fstack-protector-strong -funwind-tables -no-canonical-prefixes --sysroot /Users/victor/Library/Android/sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -fno-addrsig -fpic -O2 -DNDEBUG -I/Users/victor/Program/Android/Test/IntentTestApplication/library/jni/include -I/Users/victor/Program/Android/Test/IntentTestApplication/library/jni -DANDROID -Wa,--noexecstack -Wformat -Werror\u003dformat-security"
+        }
+      ],
+      "output": "/Users/victor/Program/Android/Test/IntentTestApplication/library/build/intermediates/ndkBuild/release/obj/local/arm64-v8a/libleoric.so"
+    }
+  },
+  "toolchains": {
+    "toolchain-arm64-v8a": {
+      "cCompilerExecutable": "/Users/victor/Library/Android/sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": []
+}
